@@ -10,6 +10,6 @@ This repository contains the matlab scripts for generating a simple PSD plot wit
 Matlab 2021 or above
 
 ## Example Data
-The example data for the hypnograms and recording files can be found in: [exampledata](https://github.com/KiranKGR/SSRC_PlotPSD/tree/b506ea61ac68232449824155ee6347addf1230a7/exampledata)
+The example data for the hypnograms and recording files can be found in: [exampledata](https://github.com/KiranKGR/SSRC_PlotPSD/tree/a80dbd40e1c0f3c0205dcf3ee3b383e602f6c706/exampledata)
 
 
