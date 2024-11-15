@@ -9,7 +9,7 @@ set(0,'defaultAxesTickDir','out');
 % hypnogram dictionary
 Hypnogram_dictionary = dictionary(["N3","N2","N1","R","W","A"],[1,2,3,4,5,6]);
 %% Import and assign data
-Hypnogram_data=readtable("exampledata\Hypnogram.xlsx","Sheet","Hypnogram");
+Hypnogram_data=readtable("..\exampledata\Hypnogram.xlsx","Sheet","Hypnogram");
 Hypnogram_Time= datetime(Hypnogram_data.EpochTime);
 Hypnogram= Hypnogram_dictionary(string(Hypnogram_data.SleepStage));
 LightsOff=datetime(erase(Hypnogram_data.Markers{1},'LightsOff: '));
@@ -17,7 +17,7 @@ LightsOn=datetime(erase(Hypnogram_data.Markers{2},'LightsOn: '));
 %% Import Example recording with F4M1
 % Get Hypnogram and markers
 % Get EEG data- Segment it and Get PSD
-Data=edfread("exampledata\Recording.edf",'TimeOutputType','datetime');
+Data=edfread("..\exampledata\Recording.edf",'TimeOutputType','datetime');
 time_temp=Data.("Record Time");
 sec_num=seconds(time_temp(2)-time_temp(1));
 Variab_names=string(Data.Properties.VariableNames);
@@ -26,7 +26,7 @@ Fs=length(Data.(1){1})/sec_num;
 start_sec=seconds(Hypnogram_Time(1)-time_temp(1));
 Data(1:(start_sec),:)=[];
 % FFT details
-epoch=30; % epoch length
+epoch=10; % 10 segments of 4 s sub epochs
 % the recording has one second records
 % create the PSD - 30 s epoch divided into 10 segments (4 seconds data with one second overlap)
 L=4*Fs;
@@ -37,7 +37,7 @@ Lp=(0.3/(Fs/2)); Hp=(20/(Fs/2));
 Spectrum=nan(length(f_vector),(length(Hypnogram)));
 for iloop=1:length(Hypnogram)
     [P3, ~] = pwelch(filtfilt(b,a,reshape([Data.(1){((iloop-1)*30)+1:iloop*30}],[],1)),hanning(L),Fs,NFFT);
-    Spectrum(:,iloop)=P3/epoch;
+    Spectrum(:,iloop)=P3/epoch; % Power divided by the number of sub-epochs 
 end
 %% Prepare the data
 % hypnogram time vector
