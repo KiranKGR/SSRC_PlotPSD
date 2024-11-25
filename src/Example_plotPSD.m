@@ -1,3 +1,4 @@
+%% The code is meant to act as a template for plotting a spectrogram. Please edit as necessary to generate accurate results pertinent to your case
 clear all; clc;
 warning off;
 % defaults
@@ -25,6 +26,7 @@ Fs=length(Data.(1){1})/sec_num;
 % Truncate the top of the Data to the start of the hypnogram
 start_sec=seconds(Hypnogram_Time(1)-time_temp(1));
 Data(1:(start_sec),:)=[];
+%% This section needs to be debugged. Please identify the errors and fix it to get the accurate result. 
 % FFT details
 epoch=10; % 10 segments of 4 s sub epochs
 % the recording has one second records
